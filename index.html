@@ -1,0 +1,855 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VOCÊ AINDA NÃO VIU O FIM</title>
+    <style>
+        @import url('https://fonts.google.com/specimen/Lacquer?categoryFilters=Feeling:%2FExpressive%2FRugged');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            background: #0a0a0a;
+            color: #ffffff;
+            font-family: 'Lacquer', sans-serif;
+            overflow-x: hidden;
+        }
+        
+        .heavy-noise {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .heavy-noise::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='heavyNoiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.2' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23heavyNoiseFilter)' opacity='0.1'/%3E%3C/svg%3E");
+            pointer-events: none;
+            z-index: 1;
+            animation: noiseShift 4s infinite linear;
+        }
+        
+        @keyframes noiseShift {
+            0% { transform: translate(0, 0); }
+            25% { transform: translate(-2px, 2px); }
+            50% { transform: translate(2px, -2px); }
+            75% { transform: translate(-1px, -1px); }
+            100% { transform: translate(0, 0); }
+        }
+        
+        .noise {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .noise::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.08'/%3E%3C/svg%3E");
+            pointer-events: none;
+            z-index: 1;
+            animation: noiseFlicker 3s infinite;
+        }
+        
+        @keyframes noiseFlicker {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+        
+        /* Header */
+        .header {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 2rem;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a0a0a 100%);
+        }
+        
+        .header h1 {
+            font-family: 'Anton', sans-serif;
+            font-size: clamp(2rem, 8vw, 6rem);
+            font-weight: 400;
+            margin-bottom: 3rem;
+            letter-spacing: 0.05em;
+            text-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+            text-transform: uppercase;
+        }
+        
+        .brutalist-btn {
+            background: #ffffff;
+            color: #000000;
+            border: none;
+            padding: 1.5rem 3rem;
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: clamp(1.2rem, 4vw, 2rem);
+            font-weight: 400;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            box-shadow: 8px 8px 0px #333333;
+            letter-spacing: 0.2em;
+        }
+        
+        .brutalist-btn:hover {
+            transform: translate(4px, 4px);
+            box-shadow: 4px 4px 0px #333333;
+        }
+        
+        /* Blocks */
+        .block {
+            padding: 4rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .quote-block {
+            text-align: center;
+            background: #111111;
+            margin: 4rem 0;
+        }
+        
+        .quote-text {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: clamp(1.5rem, 5vw, 3rem);
+            font-weight: 700;
+            transform: skew(-2deg);
+            filter: blur(0.5px);
+            text-shadow: 2px 2px 4px rgba(255, 0, 64, 0.3);
+        }
+        
+        .about-block {
+            background: #0a0a0a;
+            border-left: 4px solid #ff0040;
+            padding-left: 2rem;
+        }
+        
+        .about-text {
+            font-size: clamp(1.1rem, 3vw, 1.5rem);
+            line-height: 1.4;
+            margin-bottom: 2rem;
+        }
+        
+        .about-text strong {
+            display: block;
+            margin: 2rem 0;
+            font-size: clamp(1.3rem, 4vw, 1.8rem);
+            color: #ff0040;
+        }
+        
+        .action-buttons {
+            display: flex;
+            gap: 2rem;
+            flex-wrap: wrap;
+            margin-top: 3rem;
+        }
+        
+        .glitch-btn {
+            background: transparent;
+            border: 2px solid #ffffff;
+            color: #ffffff;
+            padding: 1rem 2rem;
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 400;
+            text-transform: uppercase;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            letter-spacing: 0.15em;
+        }
+        
+        .glitch-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: #ff0040;
+        }
+        
+        /* Interactive Gallery */
+        .gallery-block {
+            background: #111111;
+            position: relative;
+            padding: 6rem 0;
+        }
+        
+        .gallery-title {
+            font-family: 'Anton', sans-serif;
+            font-size: clamp(2rem, 5vw, 3rem);
+            text-align: center;
+            margin-bottom: 4rem;
+            color: #ff0040;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+        
+        .interactive-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        
+        .character-shape {
+            background: #222222;
+            border: 2px solid #333333;
+            padding: 2rem;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+            min-height: 200px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .character-shape:hover {
+            transform: scale(1.05) rotate(2deg);
+            border-color: #ff0040;
+            background: #1a1a1a;
+            box-shadow: 0 10px 30px rgba(255, 0, 64, 0.3);
+        }
+        
+        .character-shape:nth-child(even):hover {
+            transform: scale(1.05) rotate(-2deg);
+        }
+        
+        .shape-content {
+            text-align: center;
+            transition: all 0.4s ease;
+        }
+        
+        .shape-icon {
+            font-size: 4rem;
+            color: #666666;
+            margin-bottom: 1rem;
+            transition: all 0.4s ease;
+            font-family: 'JetBrains Mono', monospace;
+        }
+        
+        .character-shape:hover .shape-icon {
+            color: #ff0040;
+            transform: scale(1.2);
+            text-shadow: 0 0 20px rgba(255, 0, 64, 0.5);
+        }
+        
+        .character-info {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.4s ease;
+        }
+        
+        .character-shape:hover .character-info {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .character-info h3 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.5rem;
+            color: #ffffff;
+            margin-bottom: 0.5rem;
+            letter-spacing: 0.1em;
+        }
+        
+        .character-info p {
+            font-family: 'Oswald', sans-serif;
+            font-size: 0.9rem;
+            color: #cccccc;
+            line-height: 1.4;
+        }
+        
+        /* Chapter Section */
+        .chapter-block {
+            background: #0a0a0a;
+            padding: 6rem 2rem;
+            border-top: 2px solid #ff0040;
+            border-bottom: 2px solid #ff0040;
+        }
+        
+        .chapter-title {
+            font-family: 'Anton', sans-serif;
+            font-size: clamp(2rem, 5vw, 3rem);
+            text-align: center;
+            margin-bottom: 4rem;
+            color: #ff0040;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+        
+        .chapter-content {
+            max-width: 800px;
+            margin: 0 auto 4rem auto;
+            padding: 3rem;
+            background: #111111;
+            border: 2px solid #333333;
+            position: relative;
+        }
+        
+        .chapter-text {
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.2rem;
+            line-height: 1.8;
+            margin-bottom: 2rem;
+            color: #ffffff;
+            text-align: justify;
+        }
+        
+        .chapter-text:first-child {
+            font-size: 2rem;
+            color: #ff0040;
+            text-align: center;
+            margin-bottom: 3rem;
+            font-weight: 600;
+        }
+        
+        .comments-section {
+            max-width: 800px;
+            margin: 0 auto;
+            background: #111111;
+            border: 2px solid #333333;
+            padding: 3rem;
+        }
+        
+        .comments-title {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.5rem;
+            color: #ff0040;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+        
+        .comment-form {
+            margin-bottom: 3rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid #333333;
+        }
+        
+        .comment-form input,
+        .comment-form textarea {
+            width: 100%;
+            background: #222222;
+            border: 2px solid #333333;
+            color: #ffffff;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            font-family: 'Oswald', sans-serif;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+        
+        .comment-form input:focus,
+        .comment-form textarea:focus {
+            outline: none;
+            border-color: #ff0040;
+        }
+        
+        .comment-form textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+        
+        .comment-btn {
+            background: #ff0040;
+            color: #ffffff;
+            border: none;
+            padding: 1rem 2rem;
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            cursor: pointer;
+            letter-spacing: 0.1em;
+            transition: all 0.3s ease;
+        }
+        
+        .comment-btn:hover {
+            background: #cc0033;
+            transform: translateY(-2px);
+        }
+        
+        .comments-list {
+            max-height: 400px;
+            overflow-y: auto;
+        }
+        
+        .comment {
+            background: #1a1a1a;
+            border: 1px solid #333333;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            transition: all 0.3s ease;
+        }
+        
+        .comment:hover {
+            border-color: #ff0040;
+            background: #222222;
+        }
+        
+        .comment-author {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1rem;
+            color: #ff0040;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 0.5rem;
+        }
+        
+        .comment-content {
+            font-family: 'Oswald', sans-serif;
+            font-size: 1rem;
+            color: #ffffff;
+            line-height: 1.5;
+            margin-bottom: 0.5rem;
+        }
+        
+        .comment-time {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.8rem;
+            color: #666666;
+        }
+
+        /* Testimonials */
+        .testimonials-block {
+            background: #000000;
+            padding: 6rem 2rem;
+        }
+        
+        .testimonials-title {
+            font-family: 'Anton', sans-serif;
+            font-size: clamp(2rem, 5vw, 3rem);
+            text-align: center;
+            margin-bottom: 4rem;
+            color: #ffffff;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+        
+        .testimonial {
+            margin: 3rem 0;
+            padding: 2.5rem;
+            background: #111111;
+            border: 2px solid #333333;
+            transform: skew(-1deg);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .testimonial:hover {
+            transform: skew(-1deg) scale(1.02);
+            border-color: #ff0040;
+            box-shadow: 0 10px 30px rgba(255, 0, 64, 0.2);
+        }
+        
+        .testimonial:nth-child(even) {
+            text-align: right;
+            transform: skew(1deg);
+        }
+        
+        .testimonial:nth-child(even):hover {
+            transform: skew(1deg) scale(1.02);
+        }
+        
+        .testimonial-text {
+            font-size: 1.3rem;
+            font-style: italic;
+            color: #ffffff;
+            margin-bottom: 1.5rem;
+            line-height: 1.5;
+        }
+        
+        .testimonial-author {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #ff0040;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+        }
+        
+        /* Final CTA */
+        .final-cta {
+            background: linear-gradient(45deg, #ff0040, #000000);
+            text-align: center;
+            padding: 6rem 2rem;
+        }
+        
+        .final-cta h2 {
+            font-family: 'Anton', sans-serif;
+            font-size: clamp(2rem, 6vw, 4rem);
+            font-weight: 400;
+            margin-bottom: 3rem;
+            text-shadow: 4px 4px 0px #000000;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        
+        .order-btn {
+            background: #000000;
+            color: #ffffff;
+            border: 4px solid #ffffff;
+            padding: 2rem 4rem;
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 400;
+            text-transform: uppercase;
+            cursor: pointer;
+            letter-spacing: 0.3em;
+            transition: all 0.3s ease;
+        }
+        
+        .order-btn:hover {
+            background: #ffffff;
+            color: #000000;
+            transform: scale(1.05);
+        }
+        
+        /* Footer */
+        .footer {
+            background: #0a0a0a;
+            padding: 2rem;
+            text-align: center;
+            border-top: 1px solid #333333;
+        }
+        
+        .footer-content {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9rem;
+            color: #666666;
+        }
+        
+
+        
+        @media (max-width: 768px) {
+            .action-buttons {
+                flex-direction: column;
+            }
+            
+            .mockup-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .brutalist-btn {
+                padding: 1rem 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <section class="header-brutal">    
+        <section class="header noise">
+            <h1 class="heavy-noise">VOCÊ AINDA NÃO VIU O FIM.</h1>
+            <button class="brutalist-btn" onclick="window.open('https://loja.uiclap.com/titulo/ua110976', '_blank')">COMPRAR O LIVRO SEM ILUSTRAÇÕES</button>
+            <button class="brutalist-btn" onclick="window.open('https://a.co/d/0amDJutq', '_blank')">COMPRAR E-BOOK</button>
+            <button class="brutalist-btn" onclick="window.open('https://wa.me/+11920197254', '_blank')">COMPRAR O LIVRO COM ILUSTRAÇÕES</button>     
+        </section>
+    </section>
+
+    <!-- Quote Block -->
+    <section class="quote-block noise">
+        <div class="block">
+            <p class="quote-text heavy-noise">"Rubi está morta. Só restou Eco."</p>
+        </div>
+    </section>
+
+    <!-- About Block -->
+    <section class="about-block">
+        <div class="block">
+            <p class="about-text">
+                Eco não luta por um futuro.<br><br>
+                Ela só existe.<br><br>
+                E você vai assistir.
+            </p>
+            <strong>"Eco não luta por um futuro. Ela só existe. E você vai assistir."</strong>
+            
+            <div class="action-buttons">
+                <button class="glitch-btn" onclick="openChapter()">LER PRIMEIRO CAPÍTULO</button>
+                <button class="glitch-btn" onclick="scrollToGallery()">CONHECER OS PERSONAGENS</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Interactive Gallery -->
+    <section class="gallery-block noise">
+        <div class="block">
+            <h2 class="gallery-title">OS FRAGMENTOS</h2>
+            <div class="interactive-gallery">
+                <div class="character-shape" data-character="eco">
+                    <div class="shape-content">
+                        <div class="shape-icon">◯</div>
+                        <div class="character-info">
+                            <h3>ECO</h3>
+                            <p>O que restou depois que tudo acabou</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="character-shape" data-character="anton">
+                    <div class="shape-content">
+                        <div class="shape-icon">△</div>
+                        <div class="character-info">
+                            <h3>ANTON</h3>
+                            <p>Ele acreditava que podia salvar todos</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="character-shape" data-character="nico">
+                    <div class="shape-content">
+                        <div class="shape-icon">◢</div>
+                        <div class="character-info">
+                            <h3>NICO</h3>
+                            <p>O observador silencioso</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="character-shape" data-character="you">
+                    <div class="shape-content">
+                        <div class="shape-icon">◼</div>
+                        <div class="character-info">
+                            <h3>VOCÊ</h3>
+                            <p>Sim, você que está lendo isso</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- First Chapter -->
+    <section class="chapter-block">
+        <div class="block">
+            <h2 class="chapter-title">PRIMEIRO CAPÍTULO</h2>
+            <div class="chapter-content">
+                <p class="chapter-text">
+                    Rubi está morta.
+                </p>
+                <p class="chapter-text">
+                    Eu sei porque eu a matei.
+                </p>
+                <p class="chapter-text">
+                    Não com minhas mãos, mas com minha indiferença. Com meu silêncio. Com cada vez que escolhi olhar para o outro lado quando ela precisava de mim.
+                </p>
+                <p class="chapter-text">
+                    Agora só restou Eco.
+                </p>
+                <p class="chapter-text">
+                    E Eco não perdoa.
+                </p>
+                <p class="chapter-text">
+                    Ela me observa através do espelho todas as manhãs, com aqueles olhos que já não são mais dela. Ou talvez nunca tenham sido. Talvez Rubi tenha sido apenas uma ilusão que criei para suportar o peso de existir.
+                </p>
+                <p class="chapter-text">
+                    "Você me deixou morrer", ela sussurra, e sua voz ecoa no banheiro vazio como um lamento que nunca encontra paz.
+                </p>
+                <p class="chapter-text">
+                    Eu tento explicar. Tento dizer que não sabia, que se soubesse teria feito algo diferente. Mas as palavras se dissolvem antes mesmo de deixarem minha garganta, porque ambas sabemos que é mentira.
+                </p>
+                <p class="chapter-text">
+                    Eu sabia.
+                </p>
+                <p class="chapter-text">
+                    Sempre soube.
+                </p>
+                <p class="chapter-text">
+                    E escolhi não ver.
+                </p>
+            </div>
+            
+            <!-- Comments Section -->
+            <div class="comments-section">
+                <h3 class="comments-title">O QUE VOCÊ ACHOU?</h3>
+                
+                <div class="comment-form">
+                    <input type="text" id="commentName" placeholder="SEU NOME" maxlength="50">
+                    <textarea id="commentText" placeholder="DEIXE SEU COMENTÁRIO..." maxlength="500"></textarea>
+                    <button onclick="addComment()" class="comment-btn">COMENTAR</button>
+                </div>
+                
+                <div class="comments-list" id="commentsList">
+                    <div class="comment">
+                        <div class="comment-author">LUCAS FERREIRA</div>
+                        <div class="comment-content">Esse primeiro capítulo me deu arrepios. A culpa da narradora é palpável.</div>
+                        <div class="comment-time">há 2 horas</div>
+                    </div>
+                    
+                    <div class="comment">
+                        <div class="comment-author">SOFIA MARTINS</div>
+                        <div class="comment-content">Não consigo parar de pensar no que realmente aconteceu com Rubi...</div>
+                        <div class="comment-time">há 5 horas</div>
+                    </div>
+                    
+                    <div class="comment">
+                        <div class="comment-author">RAFAEL COSTA</div>
+                        <div class="comment-content">A forma como a autora constrói a atmosfera é impressionante. Já estou com medo do que vem por aí.</div>
+                        <div class="comment-time">há 1 dia</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="testimonials-block">
+        <div class="block">
+            <h2 class="testimonials-title">O QUE DIZEM OS LEITORES</h2>
+            <div class="testimonial">
+                <p class="testimonial-text">"Esse livro me fez odiar a autora. E eu li duas vezes."</p>
+                <p class="testimonial-author">MARINA SILVA</p>
+            </div>
+            <div class="testimonial">
+                <p class="testimonial-text">"Eu queria salvar ela. Mas não consegui."</p>
+                <p class="testimonial-author">CARLOS MENDES</p>
+            </div>
+            <div class="testimonial">
+                <p class="testimonial-text">"Não consegui parar de ler. Mesmo quando queria."</p>
+                <p class="testimonial-author">ANA COSTA</p>
+            </div>
+            <div class="testimonial">
+                <p class="testimonial-text">"Este livro me assombra até hoje."</p>
+                <p class="testimonial-author">PEDRO SANTOS</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Final CTA -->
+    <section class="final-cta noise">
+        <h2 class="heavy-noise">JÁ ESTÁ TUDO EM RUÍNAS.<br>O QUE VOCÊ ESTÁ ESPERANDO?</h2>
+        <button class="order-btn" onclick="scrollToOrderSection()">ENTRAR NA ORDEM</button>
+    </section>
+      
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content heavy-noise">
+            contato@eco.livro • @ecolivro
+        </div>
+    </footer>
+
+    <script>
+        function scrollToGallery() {
+            document.querySelector('.gallery-block').scrollIntoView({ 
+                behavior: 'smooth',
+                block: 'center'
+            });
+        }
+
+        function scrollToOrderSection() {
+            // Scroll to the testimonials section as an example (change selector as needed)
+            document.querySelector('.header-brutal').scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+            });
+        }
+
+        
+        function openChapter() {
+            document.querySelector('.chapter-block').scrollIntoView({ 
+                behavior: 'smooth',
+                block: 'start'
+            });
+        }
+        
+        function addComment() {
+            const name = document.getElementById('commentName').value.trim();
+            const text = document.getElementById('commentText').value.trim();
+            
+            if (!name || !text) {
+                alert('Por favor, preencha seu nome e comentário.');
+                return;
+            }
+            
+            const commentsList = document.getElementById('commentsList');
+            const newComment = document.createElement('div');
+            newComment.className = 'comment';
+            
+            const now = new Date();
+            const timeString = 'agora mesmo';
+            
+            newComment.innerHTML = `
+                <div class="comment-author">${name.toUpperCase()}</div>
+                <div class="comment-content">${text}</div>
+                <div class="comment-time">${timeString}</div>
+            `;
+            
+            // Add to top of comments list
+            commentsList.insertBefore(newComment, commentsList.firstChild);
+            
+            // Clear form
+            document.getElementById('commentName').value = '';
+            document.getElementById('commentText').value = '';
+            
+            // Animate new comment
+            newComment.style.opacity = '0';
+            newComment.style.transform = 'translateY(-20px)';
+            setTimeout(() => {
+                newComment.style.transition = 'all 0.5s ease';
+                newComment.style.opacity = '1';
+                newComment.style.transform = 'translateY(0)';
+            }, 100);
+        }
+        
+
+        
+        // Add random noise intensity changes
+        setInterval(() => {
+            const noiseElements = document.querySelectorAll('.heavy-noise::before, .noise::before');
+            document.documentElement.style.setProperty('--noise-intensity', Math.random() * 0.2 + 0.2);
+        }, 2000);
+        
+        // Interactive gallery functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const characterShapes = document.querySelectorAll('.character-shape');
+            
+            characterShapes.forEach(shape => {
+                shape.addEventListener('click', function() {
+                    const character = this.dataset.character;
+                    const characterData = {
+                        eco: {
+                            title: 'ECO',
+                            description: 'O que restou depois que tudo acabou. Ela não escolheu existir, mas aqui está. Eco carrega o peso de todas as memórias perdidas, todos os sonhos desfeitos. Ela é o último suspiro de um mundo que já não existe mais.',
+                            quote: '"Eu não sou Rubi. Nunca fui. Sou apenas o que sobrou."'
+                        },
+                        anton: {
+                            title: 'ANTON',
+                            description: 'Ele acreditava que podia salvar todos. Agora só resta o eco de suas promessas. Anton foi o herói que falhou, o salvador que chegou tarde demais. Suas boas intenções pavimentaram o caminho para o fim.',
+                            quote: '"Eu tentei. Deus sabe que eu tentei."'
+                        },
+                        nico: {
+                            title: 'NICO',
+                            description: 'O observador silencioso. Ele viu tudo desmoronar e não fez nada. Nico conhecia os segredos, sabia das mentiras, mas escolheu o silêncio. Agora vive com o peso de sua omissão.',
+                            quote: '"Às vezes, não fazer nada é a pior escolha de todas."'
+                        },
+                        you: {
+                            title: 'VOCÊ',
+                            description: 'Sim, você. Que está lendo isso agora. Você também faz parte desta história. Cada página que vira, cada palavra que lê, você se torna cúmplice. Não há como escapar.',
+                            quote: '"Você pensou que era apenas um leitor. Estava enganado."'
+                        }
+                    };
+                    
+                    const data = characterData[character];
+                    alert(`${data.title}\n\n${data.description}\n\n${data.quote}`);
+                });
+            });
+        });
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'96160a80943e52c4',t:'MTc1Mjg4NDMwMS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
